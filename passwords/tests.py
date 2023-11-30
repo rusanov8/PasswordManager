@@ -58,37 +58,4 @@ class TestPasswords(APITestCase):
 
 
     def test_get_password_by_part_of_service_name(self):
-
-        # test_search = 'te'
-        #
-        # Password.objects.create(user=self.user, service_name='test_service_1', password='password1')
-        # Password.objects.create(user=self.user, service_name='test_service_2', password='password2')
-        #
-        # response = self.client.get(f'/password/?service_name={test_search}', format='json')
-        #
-        # self.assertEqual(response.status_code, status.HTTP_200_OK)
-        #
-        # expected_format = [
-        #     {'password': 'password1', 'service_name': 'test_service_1'},
-        #     {'password': 'password2', 'service_name': 'test_service_2'}
-        # ]
-        #
-        # self.assertEqual(response.data, expected_format)
         pass
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

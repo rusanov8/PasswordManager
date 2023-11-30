@@ -43,13 +43,7 @@ python manage.py runserver
 
 ## Docker
 
-1. Create .env.docker and configure environment variables for the database:
-```
-POSTGRES_DB=
-POSTGRES_USER=
-POSTGRES_PASSWORD=
-POSTGRES_HOST=
-```
+1. Create your `.env.docker` file based on `.env.docker.example` and configure environment variables for the database:
 
 2. Run the application using Docker Compose:
 ```

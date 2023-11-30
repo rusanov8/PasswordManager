@@ -6,12 +6,13 @@ from django_filters import rest_framework as django_filters
 from .serializers import PasswordSerializer
 from .models import Password
 from .filters import PasswordFilterSet
+from .services import PasswordManager
 
 
 class PasswordRetrieveCreateView(viewsets.ModelViewSet):
     """
         ViewSet for creating and retrieving Password objects.
-     """
+    """
 
     serializer_class = PasswordSerializer
     permission_classes = (IsAuthenticated,)
@@ -46,6 +47,7 @@ class PasswordListView(generics.ListAPIView):
 
     filter_backends = (django_filters.DjangoFilterBackend,)
     filterset_class = PasswordFilterSet
+
 
     def get_queryset(self):
         """

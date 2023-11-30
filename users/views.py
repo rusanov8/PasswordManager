@@ -4,6 +4,7 @@ from .models import User
 from .serializers import UserCreateSerializer
 
 
+
 class UserCreateApiView(generics.CreateAPIView):
     """
         API view for user creation.
@@ -12,5 +13,7 @@ class UserCreateApiView(generics.CreateAPIView):
 
     def perform_create(self, serializer):
         User.objects.create_user(**serializer.validated_data)
+
+
 
 

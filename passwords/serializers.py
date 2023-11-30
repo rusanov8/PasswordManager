@@ -1,12 +1,15 @@
 from rest_framework import serializers
 import base64
 from .models import Password
-
+from .services import PasswordManager
 
 class PasswordSerializer(serializers.ModelSerializer):
     """
         Serializer for the Password model.
     """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.password_manager = PasswordManager()
 
     class Meta:
         model = Password
@@ -25,13 +28,12 @@ class PasswordSerializer(serializers.ModelSerializer):
         password_object = Password.objects.filter(user=user, service_name=service_name).first()
 
         if password_object:
-            password_object.password = base64.b64encode(validated_data['password'].encode())
+            password_object.password = self.password_manager.encode_password(validated_data['password'])
             password_object.save()
-            print(password_object.password)
         else:
             validated_data['user'] = user
             validated_data['service_name'] = service_name
-            validated_data['password'] = base64.b64encode(validated_data['password'].encode())
+            validated_data['password'] = self.password_manager.encode_password(validated_data['password'])
             password_object = Password.objects.create(**validated_data)
 
         return password_object
@@ -40,8 +42,7 @@ class PasswordSerializer(serializers.ModelSerializer):
         """
             Convert the password from base64 encoding to plain text in the representation.
         """
-        print(base64.b64decode(instance.password))
-        instance.password = base64.b64decode(instance.password).decode()
+        instance.password = self.password_manager.decode_password(instance.password)
         return super().to_representation(instance)
 
 
