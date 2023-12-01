@@ -8,11 +8,8 @@ class PasswordManager:
 
     @staticmethod
     def encode_password(password):
-        encoded_password = base64.b64encode(password.encode())
-        return encoded_password
+        return base64.b64encode(password.encode()).decode()
 
     @staticmethod
     def decode_password(encrypted_password):
-        decoded_password = base64.b64decode(encrypted_password).decode()
-        return decoded_password
-
+        return base64.b64decode(encrypted_password).decode()

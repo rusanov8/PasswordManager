@@ -34,6 +34,7 @@ class PasswordSerializer(serializers.ModelSerializer):
             validated_data['user'] = user
             validated_data['service_name'] = service_name
             validated_data['password'] = self.password_manager.encode_password(validated_data['password'])
+
             password_object = Password.objects.create(**validated_data)
 
         return password_object
@@ -42,8 +43,10 @@ class PasswordSerializer(serializers.ModelSerializer):
         """
             Convert the password from base64 encoding to plain text in the representation.
         """
-        instance.password = self.password_manager.decode_password(instance.password)
-        return super().to_representation(instance)
+        return {
+            'password': self.password_manager.decode_password(instance.password),
+            'service_name': instance.service_name
+        }
 
 
 
